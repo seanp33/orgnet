@@ -5,4 +5,9 @@ body {
 
 #container {
     border: #000000 solid 6px;
+    text-align: center;
+    width: 700px;
+    height: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
