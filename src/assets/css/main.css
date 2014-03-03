@@ -3,11 +3,6 @@ body {
     background-color: #202020;
 }
 
-#view {
+#container {
     border: #000000 solid 6px;
-    text-align: center;
-    width: 1024px;
-    height: 768px;
-    margin-left: auto;
-    margin-right: auto;
 }

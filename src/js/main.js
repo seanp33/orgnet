@@ -20,7 +20,7 @@ require(
 
   function(App, ready) {
     ready(function() {
-      var app = new App();
+      var app = new App(document.getElementById("container"));
       app.init();
     })
   });

@@ -1,6 +1,7 @@
 define([], function() {
 
-  function App() {
+  function App(container) {
+    this._container = container;
   }
 
   App.prototype = {
@@ -8,7 +9,7 @@ define([], function() {
     init: function() {
       this._stage = new PIXI.Stage(0x414241);
       this._renderer = PIXI.autoDetectRenderer(700, 700);
-      document.body.appendChild(this._renderer.view);
+      this._container.appendChild(this._renderer.view);
 
       var background = new PIXI.Sprite(PIXI.Texture.Draw(function(canvas) {
         var r = 10; //radius
