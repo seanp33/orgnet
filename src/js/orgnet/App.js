@@ -1,9 +1,10 @@
 define(
   [
-    'orgnet/fx'
+    'orgnet/fx',
+    'orgnet/ui'
   ],
 
-  function(fx) {
+  function(fx, ui, ViewManager) {
 
     function App(container) {
       this._container = container;
@@ -14,12 +15,15 @@ define(
       init: function() {
         this._stage = new PIXI.Stage(0x414241);
         this._renderer = PIXI.autoDetectRenderer(700, 700);
-        this._renderer.options.antialias = true;
         this._container.appendChild(this._renderer.view);
+        this._initBackground();
+        this._initBadge();
+        requestAnimFrame(this._animate.bind(this));
+      },
 
+      _initBackground: function() {
         var background = new PIXI.Sprite(PIXI.Texture.Draw(function(canvas) {
-          var r = 10; //radius
-          canvas.width = 700;   //you need to specify your canvas width and height otherwise it'll have a size of 0x0 and you'll get an empty sprite
+          canvas.width = 700;
           canvas.height = 700;
           var ctx = canvas.getContext("2d");
 
@@ -27,22 +31,22 @@ define(
           grd.addColorStop(0, "#424343");
           grd.addColorStop(1, "#000000");
 
-          // Fill with gradient
           ctx.fillStyle = grd;
           ctx.fillRect(0, 0, 700, 700);
         }));
 
         this._stage.addChild(background);
-
-        this._initBadge();
-        requestAnimFrame(this._animate.bind(this));
       },
 
       _initBadge: function() {
-        var texture = PIXI.Texture.fromImage("assets/img/orgnet_badge.png");
-        var badge = new PIXI.Sprite(texture);
+        var badge = new PIXI.Sprite(PIXI.Texture.fromImage("assets/img/orgnet_badge.png"));
         badge.position.x = 331;
         badge.position.y = 331;
+
+        ui.asButton(badge, function(data){
+          fx.fadeOut(badge);
+        });
+
         this._stage.addChild(badge);
         fx.fadeIn(badge);
       },
